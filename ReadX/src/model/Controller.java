@@ -202,27 +202,77 @@ public class Controller {
 
 	}
 
-	public boolean editProduct(int userPosition, String name, String url, double price, String broadCastPeriodicity) {
-		if ()
-
-		Category categoryEnum = Category.SILVER;
-
-		if(category == 2){
-			categoryEnum = Category.GOLD;
-		}
-		if(category == 3){
-			categoryEnum = Category.DIAMOND;
-		}
-
-		if (category == 0){
-			users.get(userPosition).setName(name);
-			return true;
+	public boolean editProduct(int userPosition, String name, String url, double price, String broadCastPeriodicity, int typeOfProduct, int option2, int option3) {
+		if (typeOfProduct == 1){
+			if (option2 == 1 ){
+				products.get(userPosition).setName(name);
+				return true;
+			}
+			if (option2 == 2 ){
+				products.get(userPosition).setUrl(url);
+				return true;
+			}
+			if (option2 == 3 ){
+				((Book)products.get(userPosition)).setPrice(price);
+				return true;
+			}
 		}else{
-
-			((Premium)users.get(userPosition)).setCategory(categoryEnum);
-			return true;
+			if (option3 == 1 ){
+				products.get(userPosition).setName(name);
+				return true;
+			}
+			if (option3 == 2 ){
+				products.get(userPosition).setName(name);
+				return true;
+			}
+			if (option3 == 3 ){
+				((Magazine)products.get(userPosition)).setSubscribeCost(price);
+			}
+			if (option3 == 4){
+				((Magazine)products.get(userPosition)).setBroadCastPeriodicity(broadCastPeriodicity);
+				return true;
+			}
 		}
+
+		return false;
+
 	}
 
+	public boolean deleteProduct(int productPosition) {
+		products.remove(productPosition);
+		return true;
+	}
 
+	public String showBooks(){
+
+		String msg = "";
+		int j = 1;
+
+		for (int i = 0; i<products.size(); i++){
+			if (products.get(i) instanceof Book){
+				msg += "\n" + j + ". " + products.get(i).getId() + " --- " + products.get(i).getName();
+				j++;
+			}
+		}
+
+		return msg;
+
+	}
+
+	public String buyBooks(int position){
+		String msg = "";
+		int j = 1;
+
+		for (int i = 0; i<products.size(); i++){
+			if (products.get(i) instanceof Book){
+				if(j == position){
+					((Book)products.get(i)).newSell();
+					
+				}
+				j++;
+			}
+		}
+
+		return msg;
+	}
 }

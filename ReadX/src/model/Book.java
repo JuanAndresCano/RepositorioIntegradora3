@@ -67,5 +67,12 @@ public class Book extends Product{
         this.amountOfSells = getAmountOfSells() + newSells;
     }
     
+    public void setPrice(double price){
+        this.price = price;
+    }
+
+    public void newSell(){
+        this.price++;
+    }
 
 }

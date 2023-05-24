@@ -37,6 +37,9 @@ public class Executable {
 			System.out.println("4. Consultar informacion de un usuario");
 			System.out.println("5. Consultar cuantos usuarios hay registrados");
 			System.out.println("6. Registrar productos bibliograficos");
+			System.out.println("7. Modificar productos bibliograficos");
+			System.out.println("8. Eliminar productos bibliograficos");
+			System.out.println("Ver catalogo de productos");
 			int option = reader.nextInt();
 
 			switch (option) {
@@ -58,6 +61,15 @@ public class Executable {
 				break;
 			case 6:
 				registerProduct();
+				break;
+			case 7:
+				modifyProduct();
+				break;
+			case 8:
+				deleteProduct();
+				break;
+			case 9:
+				buyOrSubscribe();
 			case 0:
 				flag = true;
 				break;
@@ -358,8 +370,10 @@ public class Executable {
 			double price = 0;
 			int option3 = 0;
 			String broadCastPeriodicity = "";
+			int typeOfProduct = 0;
 
 			if(rXSystem.getTypeOfProduct(option - 1)){
+				typeOfProduct = 1;
 				System.out.println("¿Qué datos desea modificar?");
 				System.out.println("1. Nombre \n2. Url \n3. Precio");
 				option2 = reader.nextInt();
@@ -408,7 +422,7 @@ public class Executable {
 			}
 			
 
-			if (rXSystem.editProduct(option - 1, name, url, price, broadCastPeriodicity)) {
+			if (rXSystem.editProduct(option - 1, name, url, price, broadCastPeriodicity, typeOfProduct, option2, option3)) {
 
 				System.out.println("\nUsuario editado exitosamente");
 
@@ -419,6 +433,57 @@ public class Executable {
 
 		}
 
+	}
+
+	private void deleteProduct() {
+
+		String query = rXSystem.getProductList();
+
+		if (query.equals("")) {
+
+			System.out.println("No hay productos registrados");
+
+		} else {
+
+			System.out.println("\nEste es el listado de productos registrados en el sistema");
+
+			System.out.println(query);
+
+			System.out.println("\nSeleccione el producto a borrar");
+
+			int option = reader.nextInt();
+
+			if (rXSystem.deleteProduct(option - 1)) {
+
+				System.out.println("\nProducto borrado exitosamente");
+
+			} else {
+
+				System.out.println("\nError, el producto no pudo ser borrado");
+			}
+
+		}
+
+	}
+
+	public void buyOrSubscribe(){
+
+		System.out.println("¿Qué catalogo desea ver? \n1. Libros. \n2. Revistas");
+		int choose = reader.nextInt();
+		String query = "";
+		int position = -10;
+
+		if (choose == 1){
+			query = rXSystem.showBooks();
+			System.out.println("Digite el libro a comprar. (número)");
+			position = reader.nextInt();
+
+			System.out.println(rXSystem.buyBooks(position));
+
+		}
+		if(choose == 2){
+			query = rXSystem.showMagazines();
+		}
 	}
 
 }

@@ -27,6 +27,9 @@ public class Magazine extends Product {
     public String getBroadCastPeriodicity() {
         return broadCastPeriodicity;
     }
+    public void setBroadCastPeriodicity(String broadCastPeriodicity){
+        this.broadCastPeriodicity = broadCastPeriodicity;
+    }
 
     public int getActiveSubs() {
         return activeSubs;
@@ -38,6 +41,10 @@ public class Magazine extends Product {
 
     public void updateActiveSubs(int newSubs){
         this.activeSubs = getActiveSubs() + newSubs;
+    }
+
+    public void setSubscribeCost(double subscribeCost){
+        this.subscribeCost = subscribeCost;
     }
     
 }
