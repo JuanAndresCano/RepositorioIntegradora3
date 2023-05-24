@@ -1,15 +1,21 @@
 package model;
 
 import java.util.IllegalFormatPrecisionException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Controller {
 
-	private User[] users;
+	private ArrayList<User> users;
+	private ArrayList<Product> products;
 
 	public Controller() {
 
-		users = new User[10];
+		users = new ArrayList<User>();
+		products = new ArrayList<Product>();
 		testCases();
+		
 	}
 
 	public void testCases() {
@@ -21,12 +27,10 @@ public class Controller {
 
 		String msg = "";
 
-		for (int i = 0; i < users.length; i++) {
-
-			if (users[i] != null) {
-				msg += "\n" + (i + 1) + ". " + users[i].getId() + " - " + users[i].getName();
-			}
-
+		for (int i = 0; i < users.size(); i++) {
+			
+			msg += "\n" + (i + 1) + ". " + users.get(i).getId() + " --- " + users.get(i).getName();
+			
 		}
 
 		return msg;
@@ -35,27 +39,17 @@ public class Controller {
 
 	public boolean registerUser(String id, String name, String nickname, int userType, int userCategory) {
 
-		for(int i = 0; i < users.length; i++){
+		if (userType == 1){
 
-			if(users[i] == null){
-
-				if (userType == 1){
-
-					users[i] = new Regular(id, name, nickname);
-
-					return true;
-
-				}else{
-
-					users[i] = new Premium(id, name, nickname, userCategory);
-
-					return true;
-				}
-			}
+			Regular newProduct = new Regular(id, name, nickname);
+			return users.add(newProduct);
 			
-		}
 
-		return false;
+		}else{
+
+			Premium newProduct = new Premium(id, name, nickname, userCategory);
+			return users.add(newProduct);
+		}
 
 	}
 
@@ -70,17 +64,17 @@ public class Controller {
 		}
 
 		if (category == 0){
-			users[userPosition].setName(name);
+			users.get(userPosition).setName(name);
 			return true;
 		}else{
 
-			((Premium)users[userPosition]).setCategory(categoryEnum);
+			((Premium)users.get(userPosition)).setCategory(categoryEnum);
 			return true;
 		}
 	}
 
 	public boolean deleteUser(int userPosition) {
-		users[userPosition] = null;
+		users.remove(userPosition);
 		return true;
 	}
 
@@ -88,13 +82,13 @@ public class Controller {
 
 		String msg = "";
 
-		if(users[option] != null){
-			msg = users[option].toString();
 
-			if (users[option] instanceof Premium){
-				msg += "\nCategory = " + ((Premium)users[option]).getCategory();
+			msg = users.get(option).toString();
+
+			if (users.get(option) instanceof Premium){
+				msg += "\nCategory = " + ((Premium)users.get(option)).getCategory();
 			}
-		}
+		
 
 		return msg;
 	}
@@ -108,23 +102,23 @@ public class Controller {
 		int gold = 0;
 		int diamond = 0;
 
-		for(int i = 0; i<users.length; i++){
-			if (users[i] != null){
-				if(users[i] instanceof Regular){
+		for(int i = 0; i<users.size(); i++){
+
+				if(users.get(i) instanceof Regular){
 					regular++;
 				}else{
 					premium++;
-					if((((Premium)users[i]).getCategory()) == Category.SILVER){
+					if((((Premium)users.get(i)).getCategory()) == Category.SILVER){
 						silver++;
 					}
-					if((((Premium)users[i]).getCategory()) == Category.GOLD){
+					if((((Premium)users.get(i)).getCategory()) == Category.GOLD){
 						gold++;
 					}
-					if((((Premium)users[i]).getCategory()) == Category.DIAMOND){
+					if((((Premium)users.get(i)).getCategory()) == Category.DIAMOND){
 						diamond++;
 					}
 				}
-			}
+			
 		}
 
 		msg = "La cantidad de usuarios regulares: " + regular + "\nLa cantidad de usuarios premium es de " + premium + " en las siguientes categorías: \nPlata: " + silver +"\nOro: " + gold + "\nDiamante: " + diamond;
@@ -137,12 +131,98 @@ public class Controller {
 
 	public boolean getTypeOfUser(int option){
 
-		if (users[option] instanceof Regular){
+		if (users.get(option) instanceof Regular){
 			return true;
 		}
 
 		return false;
 
 	}
+
+	public boolean registerProduct(String id, String name, int numOfPages, int day, int month, int year, int typeOfProduct, String review, int genre, double price, int categoryChoose, double subscribeCost, String broadCastPeriodicity){
+
+		Calendar newPublicationDate = new GregorianCalendar(year, month-1, day);
+
+		if (typeOfProduct == 1){
+			Genre genreDef = Genre.SCIENCE_FICTION;
+			if (genre == 2){
+				genreDef = Genre.FANTASY;
+			}
+			if (genre == 3){
+				genreDef = Genre.HISTORICAL_NOVEL;
+			}
+
+			Book newBook = new Book(id, name, numOfPages, newPublicationDate, review, genreDef, price);
+			return products.add(newBook);
+
+		}else{
+
+			MCategory category = MCategory.VARIETIES;
+			if (categoryChoose == 2){
+				category = MCategory.DESIGN;
+			}
+			if (categoryChoose == 3){
+				category = MCategory.SCIENCE;
+			}
+
+			Magazine newMagazine = new Magazine(id, name, numOfPages, newPublicationDate, category, subscribeCost, broadCastPeriodicity);
+			return products.add(newMagazine);
+		}
+	}
+
+	public String getProductList() {
+
+		String msg = "";
+
+		for (int i = 0; i < products.size(); i++) {
+			
+			msg += "\n" + (i + 1) + ". " + products.get(i).getId() + " --- " + products.get(i).getName();
+			
+			if (products.get(i) instanceof Book){
+
+				msg += " --- " + "Book";
+
+			}
+			if (products.get(i) instanceof Magazine){
+				msg += " --- " + "Magazine";
+			}
+		}
+
+		return msg;
+
+	}
+
+	public boolean getTypeOfProduct(int option){
+
+		if (products.get(option) instanceof Book){
+			return true;
+		}
+
+		return false;
+
+	}
+
+	public boolean editProduct(int userPosition, String name, String url, double price, String broadCastPeriodicity) {
+		if ()
+
+		Category categoryEnum = Category.SILVER;
+
+		if(category == 2){
+			categoryEnum = Category.GOLD;
+		}
+		if(category == 3){
+			categoryEnum = Category.DIAMOND;
+		}
+
+		if (category == 0){
+			users.get(userPosition).setName(name);
+			return true;
+		}else{
+
+			((Premium)users.get(userPosition)).setCategory(categoryEnum);
+			return true;
+		}
+	}
+
 
 }

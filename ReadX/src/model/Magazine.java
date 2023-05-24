@@ -5,18 +5,14 @@ import java.util.Calendar;
 public class Magazine extends Product {
     private MCategory category;
     private double subscribeCost;
-    private int[] broadCastPeriodicity;
+    private String broadCastPeriodicity;
     private int activeSubs;
 
-    public Magazine(String id,String name, int numOfPages, Calendar publicationDate, MCategory category, double subscribeCost,
-    int pDays, int pMonths, int pYears){
+    public Magazine(String id,String name, int numOfPages, Calendar publicationDate, MCategory category, double subscribeCost, String broadCastPeriodicity){
         super(id, name, numOfPages, publicationDate);
         this.category = category;
         this.subscribeCost = subscribeCost;
-        this.broadCastPeriodicity = new int [3];
-        broadCastPeriodicity[0] = pDays;
-        broadCastPeriodicity[1] = pMonths;
-        broadCastPeriodicity[2] = pYears;
+        this.broadCastPeriodicity = broadCastPeriodicity;
         this.activeSubs = 0;
     }
 
@@ -28,7 +24,7 @@ public class Magazine extends Product {
         return subscribeCost;
     } 
 
-    public int[] getBroadCastPeriodicity() {
+    public String getBroadCastPeriodicity() {
         return broadCastPeriodicity;
     }
 

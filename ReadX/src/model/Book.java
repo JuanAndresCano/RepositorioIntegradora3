@@ -9,14 +9,14 @@ public class Book extends Product{
     private double price;
     private int amountOfSells;
 
-    public Book(String id, String name, int numOfPages, Calendar publicationDate, String review, Genre genre, double price, int amountOfSells){
+    public Book(String id, String name, int numOfPages, Calendar publicationDate, String review, Genre genre, double price){
 
         super(id, name, numOfPages, publicationDate);
 
         this.review = review;
         this.genre = genre;
         this.price = price;
-        this.amountOfSells = amountOfSells;
+        this.amountOfSells = 0;
     }
 
     /**
