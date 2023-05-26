@@ -275,4 +275,39 @@ public class Controller {
 
 		return msg;
 	}
+
+	public String showMagazines(){
+		String msg = "";
+		int j = 1;
+
+		for (int i = 0; i<products.size(); i++){
+			if (products.get(i) instanceof Magazine){
+				msg += "\n" + j + ". " + products.get(i).getId() + " --- " + products.get(i).getName();
+				j++;
+			}
+		}
+
+		if (msg.equals("")){
+			msg = "No hay revistas registradas en el sistema";
+		}
+
+		return msg;
+	}
+
+	public String subscribeMagazine(int position){
+		String msg = "";
+		int j = 1;
+
+		for (int i = 0; i<products.size(); i++){
+			if (products.get(i) instanceof Magazine){
+				if(j == position){
+					((Book)products.get(i)).newSell();
+					
+				}
+				j++;
+			}
+		}
+
+		return msg;
+	}
 }

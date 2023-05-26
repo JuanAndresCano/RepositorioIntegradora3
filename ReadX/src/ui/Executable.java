@@ -70,6 +70,7 @@ public class Executable {
 				break;
 			case 9:
 				buyOrSubscribe();
+				break;
 			case 0:
 				flag = true;
 				break;
@@ -467,7 +468,14 @@ public class Executable {
 	}
 
 	public void buyOrSubscribe(){
-
+		System.out.println("Usuario, por favor digite su ID");
+		String id = reader.nextLine();
+		if (!rXSystem.searchUser()){
+			System.out.println("Error, el usuario no está registrado, por favor registrarse y volver a intentar");
+			return;
+		}
+			
+		
 		System.out.println("¿Qué catalogo desea ver? \n1. Libros. \n2. Revistas");
 		int choose = reader.nextInt();
 		String query = "";

@@ -1,8 +1,9 @@
 package model;
-import java.util.Calendar;
+import java.util.ArrayList;
 
 public class Premium extends User{
     private Category category;
+    private ArrayList<Bill> bills;
 
     public Premium(String id, String name, String nickname, int userCategory){
         super(id, name, nickname);
@@ -16,6 +17,8 @@ public class Premium extends User{
         if(userCategory == 3){
             this.category = Category.DIAMOND;
         }
+        
+        bills = new ArrayList<>();
     }
 
     public Category getCategory() {

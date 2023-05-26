@@ -6,13 +6,15 @@ public class Bill {
 
     private Calendar dateOfSell;
     private double payment;
-    private String bookName;
+    private String productName;
+    private TypeOfProduct typeOfProduct;
 
-    public Bill (Calendar dateOfSell, double payment){
+    public Bill (Calendar dateOfSell, double payment, String productName, TypeOfProduct typeOfProduct){
 
         this.dateOfSell = dateOfSell;
         this.payment = payment;
-
+        this.productName = productName;
+        this.typeOfProduct = typeOfProduct;
     }
 
     public Calendar getDateOfSell() {
@@ -31,12 +33,20 @@ public class Bill {
         this.payment = payment;
     }
 
-    public String getBookName() {
-        return bookName;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public TypeOfProduct getTypeOfProduct() {
+        return typeOfProduct;
+    }
+
+    public void setTypeOfProduct(TypeOfProduct typeOfProduct) {
+        this.typeOfProduct = typeOfProduct;
     }
 
     
