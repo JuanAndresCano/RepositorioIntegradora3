@@ -36,4 +36,16 @@ public class Premium extends User{
 
 		return msg;
 	}
+
+    @Override
+    public boolean buyABook(String name, double price){
+        
+        return false;
+    }
+
+    @Override
+    public boolean suscribe() {
+        return false;
+    }
+
 }

@@ -19,8 +19,14 @@ public class Controller {
 	}
 
 	public void testCases() {
-
-		
+		Calendar publicationDate = new GregorianCalendar(2000, 8, 7);
+		Calendar publicationDate2 = new GregorianCalendar(1980, 13, 3);
+		users.add(new Regular( "A00", "Carlos" , "Car"));
+		users.add(new Premium("A01", "David", "Dave", 1));
+		users.add(new Premium("A02", "Miguel", "Valle", 2));
+		users.add(new Premium("A03", "Daniela", "Dani", 3));
+		products.add(new Book("007", "James Bond", 777, publicationDate, "Well, this history has...", Genre.SCIENCE_FICTION, 70 ));
+		products.add(new Magazine("809", "Kfir", 40, publicationDate2, MCategory.VARIETIES, 20, "Monthly"));
 	}
 
 	public String getUserList() {
@@ -259,14 +265,32 @@ public class Controller {
 
 	}
 
-	public String buyBooks(int position){
+	public String buyBooks(int position, String id){
 		String msg = "";
 		int j = 1;
+		int userPosition;
+		String name = "";
+		double price = 0;
 
 		for (int i = 0; i<products.size(); i++){
 			if (products.get(i) instanceof Book){
 				if(j == position){
+
 					((Book)products.get(i)).newSell();
+					name = ((Book)products.get(i)).getName();
+					price = ((Book)products.get(i)).getPrice();
+					userPosition = lookUpUserPosition(id);
+					
+					if (users.get(userPosition).buyABook(name, price)){
+
+						msg = "Congrats, the book have been buyed propertly";
+
+					}else{
+
+						msg = "Error, can't buy the book";
+
+					}
+
 					
 				}
 				j++;
@@ -301,7 +325,7 @@ public class Controller {
 		for (int i = 0; i<products.size(); i++){
 			if (products.get(i) instanceof Magazine){
 				if(j == position){
-					((Book)products.get(i)).newSell();
+					((Magazine)products.get(i)).newSub();
 					
 				}
 				j++;
@@ -309,5 +333,31 @@ public class Controller {
 		}
 
 		return msg;
+	}
+
+	public boolean searchUser(String id){
+		
+		for (int i = 0; i < users.size(); i++){
+
+			if ((users.get(i).getId()).equals(id)){
+				return true;
+			}
+
+		}
+
+		return false;
+	}
+	public int lookUpUserPosition(String id){
+		int position = -1;
+		for (int i = 0; i < users.size(); i++){
+
+			if ((users.get(i).getId()).equals(id)){
+				return position = i;
+			}
+
+		}
+
+
+		return position; 
 	}
 }

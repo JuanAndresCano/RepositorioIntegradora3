@@ -72,7 +72,7 @@ public class Book extends Product{
     }
 
     public void newSell(){
-        this.price++;
+        this.amountOfSells++;
     }
 
 }

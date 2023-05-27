@@ -1,10 +1,10 @@
 package model;
 
-import java.util.Calendar;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
-public abstract class User {
+public abstract class User implements BuyOrSuscribe {
 
 	private String id;
 	private String name;

@@ -46,5 +46,9 @@ public class Magazine extends Product {
     public void setSubscribeCost(double subscribeCost){
         this.subscribeCost = subscribeCost;
     }
+
+    public void newSub(){
+        this.activeSubs++;
+    }
     
 }

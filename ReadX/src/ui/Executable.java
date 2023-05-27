@@ -39,7 +39,7 @@ public class Executable {
 			System.out.println("6. Registrar productos bibliograficos");
 			System.out.println("7. Modificar productos bibliograficos");
 			System.out.println("8. Eliminar productos bibliograficos");
-			System.out.println("Ver catalogo de productos");
+			System.out.println("9. Ver catalogo de productos");
 			int option = reader.nextInt();
 
 			switch (option) {
@@ -468,9 +468,12 @@ public class Executable {
 	}
 
 	public void buyOrSubscribe(){
+
+		reader.nextLine();
+
 		System.out.println("Usuario, por favor digite su ID");
 		String id = reader.nextLine();
-		if (!rXSystem.searchUser()){
+		if (!rXSystem.searchUser(id)){
 			System.out.println("Error, el usuario no está registrado, por favor registrarse y volver a intentar");
 			return;
 		}
@@ -483,14 +486,18 @@ public class Executable {
 
 		if (choose == 1){
 			query = rXSystem.showBooks();
+			System.out.println(query);
 			System.out.println("Digite el libro a comprar. (número)");
 			position = reader.nextInt();
 
-			System.out.println(rXSystem.buyBooks(position));
+			System.out.println(rXSystem.buyBooks(position, id));
 
 		}
 		if(choose == 2){
 			query = rXSystem.showMagazines();
+			System.out.println(query);
+			System.out.println("Digite la revista a la cual suscribirse.");
+			position = reader.nextInt();
 		}
 	}
 

@@ -9,12 +9,13 @@ public class Bill {
     private String productName;
     private TypeOfProduct typeOfProduct;
 
-    public Bill (Calendar dateOfSell, double payment, String productName, TypeOfProduct typeOfProduct){
+    public Bill (double payment, String productName, TypeOfProduct typeOfProduct){
 
-        this.dateOfSell = dateOfSell;
+        
         this.payment = payment;
         this.productName = productName;
         this.typeOfProduct = typeOfProduct;
+        this.dateOfSell = Calendar.getInstance();
     }
 
     public Calendar getDateOfSell() {
