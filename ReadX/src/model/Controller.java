@@ -1,9 +1,7 @@
 package model;
 
-import java.util.IllegalFormatPrecisionException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.Random;
 
 public class Controller {
 
@@ -19,14 +17,21 @@ public class Controller {
 	}
 
 	public void testCases() {
-		Calendar publicationDate = new GregorianCalendar(2000, 8, 7);
-		Calendar publicationDate2 = new GregorianCalendar(1980, 13, 3);
+
 		users.add(new Regular( "A00", "Carlos" , "Car"));
 		users.add(new Premium("A01", "David", "Dave", 1));
 		users.add(new Premium("A02", "Miguel", "Valle", 2));
 		users.add(new Premium("A03", "Daniela", "Dani", 3));
-		products.add(new Book("007", "James Bond", 777, publicationDate, "Well, this history has...", Genre.SCIENCE_FICTION, 70 ));
-		products.add(new Magazine("809", "Kfir", 40, publicationDate2, MCategory.VARIETIES, 20, "Monthly"));
+		products.add(new Book("007", "James Bond", 777, "Well, this history has...", Genre.SCIENCE_FICTION, 70 ));
+		products.add(new Magazine("809", "Kfir", 40, MCategory.VARIETIES, 20, "Monthly"));
+		products.add(new Book("008", "8cho", 777, "Well, this history has...", Genre.SCIENCE_FICTION, 70 ));
+		products.add(new Magazine("546", "Cancerbero", 40, MCategory.SCIENCE, 20, "Monthly"));
+		products.add(new Book("009", "La divida comedia", 777, "Well, this history has...", Genre.SCIENCE_FICTION, 70 ));
+		products.add(new Magazine("947", "Econo", 40, MCategory.SCIENCE, 20, "Monthly"));
+		products.add(new Book("010", "James Rodriguez", 777, "Well, this history has...", Genre.SCIENCE_FICTION, 70 ));
+		products.add(new Magazine("947", "Sisas", 40, MCategory.DESIGN, 20, "Monthly"));
+		products.add(new Book("011", "La insoportable levedad del ser", 777, "Well, this history has...", Genre.SCIENCE_FICTION, 70 ));
+		products.add(new Magazine("875", "Lambo", 40, MCategory.VARIETIES, 20, "Monthly"));
 	}
 
 	public String getUserList() {
@@ -145,9 +150,8 @@ public class Controller {
 
 	}
 
-	public boolean registerProduct(String id, String name, int numOfPages, int day, int month, int year, int typeOfProduct, String review, int genre, double price, int categoryChoose, double subscribeCost, String broadCastPeriodicity){
+	public boolean registerProduct(String id, String name, int numOfPages, int typeOfProduct, String review, int genre, double price, int categoryChoose, double subscribeCost, String broadCastPeriodicity){
 
-		Calendar newPublicationDate = new GregorianCalendar(year, month-1, day);
 
 		if (typeOfProduct == 1){
 			Genre genreDef = Genre.SCIENCE_FICTION;
@@ -158,7 +162,7 @@ public class Controller {
 				genreDef = Genre.HISTORICAL_NOVEL;
 			}
 
-			Book newBook = new Book(id, name, numOfPages, newPublicationDate, review, genreDef, price);
+			Book newBook = new Book(id, name, numOfPages, review, genreDef, price);
 			return products.add(newBook);
 
 		}else{
@@ -171,7 +175,7 @@ public class Controller {
 				category = MCategory.SCIENCE;
 			}
 
-			Magazine newMagazine = new Magazine(id, name, numOfPages, newPublicationDate, category, subscribeCost, broadCastPeriodicity);
+			Magazine newMagazine = new Magazine(id, name, numOfPages, category, subscribeCost, broadCastPeriodicity);
 			return products.add(newMagazine);
 		}
 	}
@@ -275,13 +279,13 @@ public class Controller {
 		for (int i = 0; i<products.size(); i++){
 			if (products.get(i) instanceof Book){
 				if(j == position){
-
+					Book tempBook = (Book)products.get(i);
 					((Book)products.get(i)).newSell();
 					name = ((Book)products.get(i)).getName();
 					price = ((Book)products.get(i)).getPrice();
 					userPosition = lookUpUserPosition(id);
 					
-					if (users.get(userPosition).buyABook(name, price)){
+					if (users.get(userPosition).buyABook(name, price, tempBook)){
 
 						msg = "Congrats, the book have been buyed propertly";
 
@@ -291,7 +295,6 @@ public class Controller {
 
 					}
 
-					
 				}
 				j++;
 			}
@@ -318,21 +321,46 @@ public class Controller {
 		return msg;
 	}
 
-	public String subscribeMagazine(int position){
+	public String subscribeMagazine(int position, String id){
+
 		String msg = "";
 		int j = 1;
+		String name;
+		double subscribeCost;
+		int userPosition;
 
 		for (int i = 0; i<products.size(); i++){
+
 			if (products.get(i) instanceof Magazine){
+
 				if(j == position){
+
+					Magazine tempMagazine = (Magazine)products.get(i);
 					((Magazine)products.get(i)).newSub();
-					
+					name = ((Magazine)products.get(i)).getName();
+					subscribeCost = ((Magazine)products.get(i)).getSubscribeCost();
+					userPosition = lookUpUserPosition(id);
+
+					if (users.get(userPosition).suscribe(name, subscribeCost, tempMagazine)){
+
+						msg = "Congrats, the magazine subscription have been complete propertly";
+
+					}else{
+
+						msg = "Error, can't complete the sub";
+
+					}
+
 				}
+
 				j++;
+
 			}
+
 		}
 
 		return msg;
+
 	}
 
 	public boolean searchUser(String id){
@@ -346,7 +374,9 @@ public class Controller {
 		}
 
 		return false;
+
 	}
+
 	public int lookUpUserPosition(String id){
 		int position = -1;
 		for (int i = 0; i < users.size(); i++){
@@ -357,7 +387,258 @@ public class Controller {
 
 		}
 
+		return position;
 
-		return position; 
 	}
+
+	public String showLibrary(String id){
+
+		String msg = "";
+		int userPosition = lookUpUserPosition(id);
+
+		if(users.get(userPosition) instanceof Premium){
+
+			((Premium)users.get(userPosition)).organizeByDatePremium();
+			((Premium)users.get(userPosition)).fillLibraryPremium();
+			msg = ((Premium)users.get(userPosition)).showMatrix();
+
+		}else{
+
+			((Regular)users.get(userPosition)).organizeByDateRegular();
+			((Regular)users.get(userPosition)).fillLibraryRegular();
+			msg = ((Regular)users.get(userPosition)).showMatrix();
+		}
+		if (msg.equals("")){
+
+			msg = "No se ha comprado ningun producto para mostrar";
+			
+		}
+		return msg;
+	}
+
+	public String lectureSimulator(String id, String bookChoosed, int page, String userChoice, int count){
+		String msg = "";
+		int totalPages = 1;
+		String name = "";
+		Random random = new Random();
+		int count2;
+		for(int j = 0; j < products.size(); j++){
+
+			if((products.get(j).getId()).equals(bookChoosed)){
+
+				products.get(j).newReadedPage();
+				totalPages = products.get(j).getNumOfPages();
+				name = products.get(j).getName();
+			}
+
+		}
+
+		if(userChoice.equals("A")){
+			if(page>1){
+				page--;
+			}else{
+				msg += "No es posible ir una página atrás\n";
+			}
+		}
+		if(userChoice.equals("S")){
+			if(page<totalPages){
+				page++;
+			}else{
+				msg += "No es posible ir una página adelante\n";
+			}
+		}
+
+		for (int i = 0; i < users.size(); i++){
+
+			if((users.get(i).getId()).equals(id)){
+
+				if (users.get(i) instanceof Premium){
+
+					msg += ((Premium)users.get(i)).lectureSimulatorPremium(page, totalPages, name);
+
+				}else{
+
+					msg += ((Regular)users.get(i)).lectureSimulatorRegular(page, totalPages, name);
+					count++;
+
+					if ((count%5) == 0){
+						count2 = random.nextInt(3);
+						if(count2 == 0){
+							msg += "¡Suscríbete al Combo Plus y llévate Disney+ y Star+ a un precio increíble!";
+						}
+						if(count2 == 1){
+							msg += "Ahora tus mascotas tienen una app favorita: Laika. Los mejores productos para tu peludito.";
+						}
+						if(count2 == 2){
+							msg += "¡Estamos de aniversario! Visita tu Éxito más cercano y sorpréndete con las mejores ofertas.";
+						}
+					}
+
+				}
+				
+			}
+		}
+
+		return msg;
+
+	}
+
+	public String acumReadedPagesPerProduct(){
+		String msg = "";
+		int bookReadedPages = 0;
+		int magazineReadedPages = 0;
+		for(int i = 0; i<products.size(); i++){
+			if(products.get(i) instanceof Book){
+				bookReadedPages += ((Book)products.get(i)).getAcumReadedPages();
+			}else{
+				magazineReadedPages += ((Magazine)products.get(i)).getAcumReadedPages();
+			}
+		}
+		msg += "En total se han leido " + bookReadedPages + " páginas de libros. Y " + magazineReadedPages + " páginas de revistas";
+		return msg;
+	}
+
+	public String genreAndCategoryMoreReaded(){
+		String msg = "";
+		int fantasy = 0;
+		int historicalNovel = 0;
+		int scienceFiction = 0;
+		int design = 0;
+		int science = 0;
+		int varieties = 0;
+			for(int i = 0; i < products.size(); i++){
+				if (products.get(i) instanceof Book){
+					if(((Book)products.get(i)).getGenre() == Genre.FANTASY){
+						fantasy += ((Book)products.get(i)).getAcumReadedPages();
+					}
+					if(((Book)products.get(i)).getGenre() == Genre.HISTORICAL_NOVEL){
+						historicalNovel += ((Book)products.get(i)).getAcumReadedPages();
+					}else{
+						scienceFiction += ((Book)products.get(i)).getAcumReadedPages();
+					}
+				}else{
+					if(((Magazine)products.get(i)).getMCategory() == MCategory.DESIGN){
+						design += ((Magazine)products.get(i)).getAcumReadedPages();
+					}
+					if(((Magazine)products.get(i)).getMCategory() == MCategory.SCIENCE){
+						science += ((Magazine)products.get(i)).getAcumReadedPages();
+					}else{
+						varieties += ((Magazine)products.get(i)).getAcumReadedPages();
+					}
+				}
+			}
+			
+			if((fantasy > historicalNovel) && (fantasy > scienceFiction)){
+				msg += "En los libros, el género más leído fue fantasía, con " + fantasy + " páginas leídas";
+			}
+			if((historicalNovel > fantasy) && (historicalNovel > scienceFiction)){
+				msg += "En los libros, el género más leído fue novela historica, con " + historicalNovel + " páginas leídas";
+			}
+			if((scienceFiction > historicalNovel) && (fantasy < scienceFiction)){
+				msg += "En los libros, el género más leído fue sciencia ficción, con " + scienceFiction + " páginas leídas";
+			}
+			if((design > science) && (design > varieties)){
+				msg += "En las revistas, la categoría más leída fue diseño, con " + design + " páginas leídas";
+			}
+			if((design < science) && (science > varieties)){
+				msg += "En las revistas, la categoría más leída fue ciencia, con " + science + " páginas leídas";
+			}
+			if((varieties > science) && (design < varieties)){
+				msg += "En las revistas, la categoría más leída fue variedades, con " + varieties + " páginas leídas";
+			}
+
+		return msg;
+	}
+
+	public String top5(){
+		String msg = "";
+		
+		Book top1 = (Book)products.get(0);
+		Book top2 = (Book)products.get(2);
+		Book top3 = (Book)products.get(4);
+		Book top4 = (Book)products.get(6);
+		Book top5 = (Book)products.get(8);
+
+		Magazine top1M = (Magazine)products.get(1);
+		Magazine top2M = (Magazine)products.get(3);
+		Magazine top3M = (Magazine)products.get(5);
+		Magazine top4M = (Magazine)products.get(7);
+		Magazine top5M = (Magazine)products.get(9);
+		
+		for(int i = 0; i < products.size(); i++){
+			if (products.get(i) instanceof Book){
+				if (top1.getAcumReadedPages()<((Book)products.get(i)).getAcumReadedPages()){
+					top5 = top4;
+					top4 = top3;
+					top3 = top2;
+					top2 = top1;
+					top1 = ((Book)products.get(i));
+				}
+
+				if((top1.getAcumReadedPages()>((Book)products.get(i)).getAcumReadedPages())&&(top2.getAcumReadedPages()<((Book)products.get(i)).getAcumReadedPages())){
+					top5 = top4;
+					top4 = top3;
+					top3 = top2;
+					top2 = ((Book)products.get(i));
+				}
+
+				if((top2.getAcumReadedPages()>((Book)products.get(i)).getAcumReadedPages())&&((top3.getAcumReadedPages()<((Book)products.get(i)).getAcumReadedPages()))){
+					top5 = top4;
+					top4 = top3;
+					top3 = ((Book)products.get(i));
+				}
+				if((top3.getAcumReadedPages()>((Book)products.get(i)).getAcumReadedPages())&&(top4.getAcumReadedPages()<((Book)products.get(i)).getAcumReadedPages())){
+					top5 = top4;
+					top4 = ((Book)products.get(i));
+				}
+				if((top4.getAcumReadedPages()>((Book)products.get(i)).getAcumReadedPages())&&(top5.getAcumReadedPages()<((Book)products.get(i)).getAcumReadedPages())){
+					top5 = ((Book)products.get(i));
+				}
+			}else{
+
+			
+				if (top1M.getAcumReadedPages()<((Magazine)products.get(i)).getAcumReadedPages()){
+					top5M = top4M;
+					top4M = top3M;
+					top3M = top2M;
+					top2M = top1M;
+					top1M = ((Magazine)products.get(i));
+				}
+
+				if((top1M.getAcumReadedPages()>((Magazine)products.get(i)).getAcumReadedPages())&&(top2M.getAcumReadedPages()<((Magazine)products.get(i)).getAcumReadedPages())){
+					top5M = top4M;
+					top4M = top3M;
+					top3M = top2M;
+					top2M = ((Magazine)products.get(i));
+				}
+
+				if((top2M.getAcumReadedPages()>((Magazine)products.get(i)).getAcumReadedPages())&&((top3M.getAcumReadedPages()<((Magazine)products.get(i)).getAcumReadedPages()))){
+					top5M = top4M;
+					top4M = top3M;
+					top3M = ((Magazine)products.get(i));
+				}
+				if((top3M.getAcumReadedPages()>((Magazine)products.get(i)).getAcumReadedPages())&&(top4M.getAcumReadedPages()<((Magazine)products.get(i)).getAcumReadedPages())){
+					top5M = top4M;
+					top4M = ((Magazine)products.get(i));
+				}
+				if((top4M.getAcumReadedPages()>((Magazine)products.get(i)).getAcumReadedPages())&&(top5M.getAcumReadedPages()<((Magazine)products.get(i)).getAcumReadedPages())){
+					top5M = ((Magazine)products.get(i));
+				}
+			}
+		}
+		msg += "\nBook top 1: \nNombre: " + top1.getName() +" \nGénero: " + top1.getGenre() + "\nPáginas leídas" + top1.getAcumReadedPages();
+		msg += "\nBook top 2: \nNombre: " + top2.getName() +" \nGénero: " + top2.getGenre() + "\nPáginas leídas" + top2.getAcumReadedPages();
+		msg += "\nBook top 3: \nNombre: " + top3.getName() +" \nGénero: " + top3.getGenre() + "\nPáginas leídas" + top3.getAcumReadedPages();
+		msg += "\nBook top 4: \nNombre: " + top4.getName() +" \nGénero: " + top4.getGenre() + "\nPáginas leídas" + top4.getAcumReadedPages();
+		msg += "\nBook top 5: \nNombre: " + top5.getName() +" \nGénero: " + top5.getGenre() + "\nPáginas leídas" + top5.getAcumReadedPages();
+
+		msg += "\nMagazine top 1: \nNombre: " + top1M.getName() +" \nCategoría: " + top1M.getMCategory() + "\nPáginas leídas" + top1M.getAcumReadedPages();
+		msg += "\nMagazine top 2: \nNombre: " + top2M.getName() +" \nCategoría: " + top2M.getMCategory() + "\nPáginas leídas" + top2M.getAcumReadedPages();
+		msg += "\nMagazine top 3: \nNombre: " + top3M.getName() +" \nCategoría: " + top3M.getMCategory() + "\nPáginas leídas" + top3M.getAcumReadedPages();
+		msg += "\nMagazine top 4: \nNombre: " + top4M.getName() +" \nCategoría: " + top4M.getMCategory() + "\nPáginas leídas" + top4M.getAcumReadedPages();
+		msg += "\nMagazine top 5: \nNombre: " + top5M.getName() +" \nCategoría: " + top5M.getMCategory() + "\nPáginas leídas" + top5M.getAcumReadedPages();
+
+		return msg;
+	}
+
 }

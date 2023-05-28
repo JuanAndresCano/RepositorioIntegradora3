@@ -40,6 +40,8 @@ public class Executable {
 			System.out.println("7. Modificar productos bibliograficos");
 			System.out.println("8. Eliminar productos bibliograficos");
 			System.out.println("9. Ver catalogo de productos");
+			System.out.println("10. Open display library");
+			System.out.println("11. Generar reporte de productos registrados");
 			int option = reader.nextInt();
 
 			switch (option) {
@@ -70,6 +72,12 @@ public class Executable {
 				break;
 			case 9:
 				buyOrSubscribe();
+				break;
+			case 10:
+				displayLibrary();
+				break;
+			case 11:
+				generateReport();
 				break;
 			case 0:
 				flag = true;
@@ -286,17 +294,6 @@ public class Executable {
 
 		System.out.println("Digite la cantidad de páginas");
 		int numOfPages = reader.nextInt();
-
-		System.out.println("Digite la fecha de publicación");
-		System.out.println("Digite el día");
-		int day = reader.nextInt();
-
-		System.out.println("Digite el mes");
-		int month = reader.nextInt();
-
-		System.out.println("Digite el año");
-		int year = reader.nextInt();
-
 		int typeOfProduct = 0;
 
 		while((typeOfProduct != 1) || (typeOfProduct != 2)){
@@ -339,7 +336,7 @@ public class Executable {
 
 		}
 
-		if (rXSystem.registerProduct(id, name, numOfPages, day, month, year, typeOfProduct, review, genre, price, categoryChoose, subscribeCost, broadCastPeriodicity)){
+		if (rXSystem.registerProduct(id, name, numOfPages, typeOfProduct, review, genre, price, categoryChoose, subscribeCost, broadCastPeriodicity)){
 			System.out.println("El producto ha sido registrado con exito");
 		}else{
 			System.out.println("Error, no se ha podido registrar el producto");
@@ -498,7 +495,57 @@ public class Executable {
 			System.out.println(query);
 			System.out.println("Digite la revista a la cual suscribirse.");
 			position = reader.nextInt();
+
+			System.out.println(rXSystem.subscribeMagazine(position, id));
 		}
 	}
+
+	public void displayLibrary(){
+		boolean flag = false;
+		boolean flag2 = false;
+		reader.nextLine();
+
+		System.out.println("Usuario, por favor digite su ID");
+		String id = reader.nextLine();
+
+		if (!rXSystem.searchUser(id)){
+			System.out.println("Error, el usuario no está registrado, por favor registrarse y volver a intentar");
+			return;
+		}
+
+		while(!flag){
+			int count = 0;
+			int page = 1;
+			flag2 = false;	
+			System.out.println(rXSystem.showLibrary(id));
+			System.out.println("Ahora digite el código del producto que desee leer o digite F para salir");
+			String bookChoosed = reader.nextLine();
+			String userChoice = "";
+			if (bookChoosed.equals("F")){
+				return;
+			}
+			while(!flag2){
+
+				System.out.println(rXSystem.lectureSimulator(id, bookChoosed, page, userChoice, count));
+				userChoice = reader.nextLine();
+
+				if(userChoice.equals("B")){
+					flag2 = true;
+				}
+				
+			}
+			
+		}
+		
+
+	}
+
+	public void generateReport(){
+		System.out.println(rXSystem.acumReadedPagesPerProduct());
+		System.out.println(rXSystem.genreAndCategoryMoreReaded());
+		System.out.println(rXSystem.top5());
+	}
+
+	
 
 }

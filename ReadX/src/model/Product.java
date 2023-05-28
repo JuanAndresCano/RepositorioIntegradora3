@@ -1,7 +1,7 @@
 package model;
 
 import java.util.Calendar;
-
+import java.text.SimpleDateFormat;
 
 public abstract class Product {
     private String id;
@@ -17,11 +17,11 @@ public abstract class Product {
      * @param numOfPages int It is the amount of pages of the product.
      * @param publicationDate Calendar It is the date when registered the product.
      */
-    public Product(String id,String name, int numOfPages, Calendar publicationDate){
+    public Product(String id,String name, int numOfPages){
         this.id = id;
         this.name = name;
         this.numOfPages = numOfPages;
-        this.publicationDate = publicationDate;
+        this.publicationDate = Calendar.getInstance();
         this.url = "";
         this.acumReadedPages = 0;
     }
@@ -112,6 +112,10 @@ public abstract class Product {
      */
     public void upToDateReadedPages(int newReadedPages) {
         this.acumReadedPages = getAcumReadedPages() + newReadedPages;
+    }
+
+    public void newReadedPage(){
+        this.acumReadedPages++;
     }
 
 }

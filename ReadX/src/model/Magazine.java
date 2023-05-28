@@ -8,15 +8,15 @@ public class Magazine extends Product {
     private String broadCastPeriodicity;
     private int activeSubs;
 
-    public Magazine(String id,String name, int numOfPages, Calendar publicationDate, MCategory category, double subscribeCost, String broadCastPeriodicity){
-        super(id, name, numOfPages, publicationDate);
+    public Magazine(String id,String name, int numOfPages, MCategory category, double subscribeCost, String broadCastPeriodicity){
+        super(id, name, numOfPages);
         this.category = category;
         this.subscribeCost = subscribeCost;
         this.broadCastPeriodicity = broadCastPeriodicity;
         this.activeSubs = 0;
     }
 
-    public MCategory getCategory() {
+    public MCategory getMCategory() {
         return category;
     }
 

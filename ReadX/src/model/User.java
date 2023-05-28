@@ -1,8 +1,11 @@
 package model;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import java.text.SimpleDateFormat;
+
+
+
 
 public abstract class User implements BuyOrSuscribe {
 
@@ -10,7 +13,6 @@ public abstract class User implements BuyOrSuscribe {
 	private String name;
 	private String nickname;
 	private Calendar signUpDate;
-	private DateFormat formatter;
 
 	public User(String id, String name, String nickname) {
 		super();
@@ -18,7 +20,6 @@ public abstract class User implements BuyOrSuscribe {
 		this.name = name;
 		this.nickname = nickname;
 		this.signUpDate = Calendar.getInstance();
-		this.formatter = new SimpleDateFormat("dd/M/yy");
 	}
 
 	public String getId() {
@@ -61,14 +62,17 @@ public abstract class User implements BuyOrSuscribe {
 		return msg;
 	}
 
-	public String getDateFormatted(){
-		return formatter.format(this.signUpDate.getTime());
-	}
+
+	
 	
 
 	@Override
 	public String toString() {
-		return "User: \nId = " + id + "\nName = " + name + "\nNickname = " + nickname + "\nRegistration date = " + getDateFormatted() ;
+		return "User: \nId = " + id + "\nName = " + name + "\nNickname = " + nickname + "\nRegistration date = " + getSignUpDate() ;
 	}
+
+   
+		
+	
 	
 }
