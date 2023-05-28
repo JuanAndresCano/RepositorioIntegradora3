@@ -67,10 +67,20 @@ public class Book extends Product{
         this.amountOfSells = getAmountOfSells() + newSells;
     }
     
+    /**
+     * This function sets the price of an object.
+     * 
+     * @param price The parameter "price" is a double data type that represents the price of a product
+     * or service. The method "setPrice" sets the value of the price variable to the value passed as an
+     * argument to the method.
+     */
     public void setPrice(double price){
         this.price = price;
     }
 
+    /**
+     * The function increments the amount of sells by one.
+     */
     public void newSell(){
         this.amountOfSells++;
     }

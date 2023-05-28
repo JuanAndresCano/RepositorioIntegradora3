@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProjectTreeState projectID="KMvNBhGGAqACKAkG" projectPath="C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\VPProjects\Integradora3.vpp">
+	<TreeState name="ModelRepository" viewX="0" viewY="0"/>
+	<TreeState name="DiagramNavigator" viewX="0" viewY="0"/>
+	<TreeState name="ClassBrowser" viewX="0" viewY="0">
+		<ExpandedPath>ClassBrowser</ExpandedPath>
+		<ExpandedPath>ClassBrowser,ClassBrowser</ExpandedPath>
+		<ExpandedPath>ClassBrowser,Java Round-trip</ExpandedPath>
+		<ExpandedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src</ExpandedPath>
+		<ExpandedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src,model</ExpandedPath>
+		<ExpandedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src,ui</ExpandedPath>
+		<SelectedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src,model,Bill.java</SelectedPath>
+		<SelectedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src,model,Book.java</SelectedPath>
+		<SelectedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src,model,BuyOrSuscribe.java</SelectedPath>
+		<SelectedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src,model,Category.java</SelectedPath>
+		<SelectedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src,model,Controller.java</SelectedPath>
+		<SelectedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src,model,Genre.java</SelectedPath>
+		<SelectedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src,model,MCategory.java</SelectedPath>
+		<SelectedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src,model,Magazine.java</SelectedPath>
+		<SelectedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src,model,Premium.java</SelectedPath>
+		<SelectedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src,model,Product.java</SelectedPath>
+		<SelectedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src,model,Regular.java</SelectedPath>
+		<SelectedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src,model,TypeOfProduct.java</SelectedPath>
+		<SelectedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src,model,User.java</SelectedPath>
+		<SelectedPath>ClassBrowser,Java Round-trip,C:\Users\Juan Andr\u00e9s Cano R\OneDrive\Documentos\RepositorioIntegradora3\ReadX\src,ui,Executable.java</SelectedPath>
+	</TreeState>
+	<TreeState name="LogicalView" viewX="0" viewY="0"/>
+	<TreeState name="DiagramBacklog" viewX="0" viewY="0"/>
+</ProjectTreeState>

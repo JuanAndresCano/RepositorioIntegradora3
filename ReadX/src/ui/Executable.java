@@ -8,12 +8,18 @@ public class Executable {
 	private Scanner reader;
 	private Controller rXSystem;
 
+	// The above code is defining a constructor for a class called "Executable". Within the constructor,
+	// it initializes a Scanner object to read input from the console and creates a new instance of a
+	// Controller class called "rXSystem".
 	public Executable() {
 
 		reader = new Scanner(System.in);
 		rXSystem = new Controller();
 	}
 
+	/**
+	 * The main function creates an instance of the Executable class and calls its menu method.
+	 */
 	public static void main(String[] args) {
 
 		Executable ejecutable = new Executable();
@@ -21,6 +27,10 @@ public class Executable {
 
 	}
 
+	/**
+	 * This function displays a menu with various options for the user to choose from and executes the
+	 * corresponding actions based on the user's input.
+	 */
 	private void menu() {
 
 		System.out.println("Bienvenido a ReaderX!");
@@ -40,7 +50,7 @@ public class Executable {
 			System.out.println("7. Modificar productos bibliograficos");
 			System.out.println("8. Eliminar productos bibliograficos");
 			System.out.println("9. Ver catalogo de productos");
-			System.out.println("10. Open display library");
+			System.out.println("10. Ver la librería");
 			System.out.println("11. Generar reporte de productos registrados");
 			int option = reader.nextInt();
 
@@ -92,15 +102,16 @@ public class Executable {
 
 	}
 
+	/**
+	 * This function registers a new user by prompting the user to input their name, nickname, user type,
+	 * and user category (if applicable), and then calls a method to register the user in a system.
+	 */
 	private void registerUser() {
 
 		System.out.println("Digite a continuacion la informacion de un nuevo usuario");
 
 		// Limpieza de buffer
 		reader.nextLine();
-
-		System.out.println("Digite la cedula");
-		String id = reader.nextLine();
 
 		System.out.println("Digite el nombre");
 		String name = reader.nextLine();
@@ -142,7 +153,7 @@ public class Executable {
 			}
 		}
 
-		if (rXSystem.registerUser(id, name, nickname, userType, userCategory)) {
+		if (rXSystem.registerUser(name, nickname, userType, userCategory)) {
 
 			System.out.println("Usuario registrado exitosamente");
 
@@ -152,6 +163,10 @@ public class Executable {
 		}
 	}
 
+	/**
+	 * This function allows the modification of user information in a system, including their name and
+	 * category.
+	 */
 	private void modifyUser() {
 
 		String query = rXSystem.getUserList();
@@ -207,6 +222,10 @@ public class Executable {
 
 	}
 
+	/**
+	 * This function deletes a user from the system after displaying a list of registered users and
+	 * prompting the user to select the user to be deleted.
+	 */
 	private void deleteUser() {
 
 		String query = rXSystem.getUserList();
@@ -237,6 +256,10 @@ public class Executable {
 
 	}
 
+	/**
+	 * This function displays a list of registered users in the system and allows the user to select a
+	 * user to view their information.
+	 */
 	private void showUserInfo() {
 		
 
@@ -269,6 +292,9 @@ public class Executable {
 
 	}
 
+	/**
+	 * This function prints the count of all user information in the system.
+	 */
 	private void countAllUserInfo() {
 
 		System.out.println("Esta es la informacion de usuarios registrada en el sistema");
@@ -284,10 +310,11 @@ public class Executable {
 
 	}
 
+	/**
+	 * This function registers a product by prompting the user for information such as name, type, genre,
+	 * price, and category, and then calls a method to register the product in the system.
+	 */
 	private void registerProduct(){
-
-		System.out.println("Digite el id del libro");
-		String id = reader.nextLine();
 
 		System.out.println("Digite el nombre del libro");
 		String name = reader.nextLine();
@@ -336,7 +363,7 @@ public class Executable {
 
 		}
 
-		if (rXSystem.registerProduct(id, name, numOfPages, typeOfProduct, review, genre, price, categoryChoose, subscribeCost, broadCastPeriodicity)){
+		if (rXSystem.registerProduct(name, numOfPages, typeOfProduct, review, genre, price, categoryChoose, subscribeCost, broadCastPeriodicity)){
 			System.out.println("El producto ha sido registrado con exito");
 		}else{
 			System.out.println("Error, no se ha podido registrar el producto");
@@ -344,6 +371,10 @@ public class Executable {
 		
 	}
 
+	/**
+	 * This function allows the user to modify a product in the system by selecting the product and
+	 * choosing which data to modify.
+	 */
 	private void modifyProduct() {
 
 		String query = rXSystem.getProductList();
@@ -364,7 +395,6 @@ public class Executable {
 			int option2 = 0;
 			String name = "";
 			String url = "";
-			int category = 0;
 			double price = 0;
 			int option3 = 0;
 			String broadCastPeriodicity = "";
@@ -433,6 +463,9 @@ public class Executable {
 
 	}
 
+	/**
+	 * This function deletes a product from a list of registered products in a system.
+	 */
 	private void deleteProduct() {
 
 		String query = rXSystem.getProductList();
@@ -464,6 +497,10 @@ public class Executable {
 
 	}
 
+	/**
+	 * This function allows a user to buy a book or subscribe to a magazine from a catalog, after
+	 * verifying their ID and checking if they are registered.
+	 */
 	public void buyOrSubscribe(){
 
 		reader.nextLine();
@@ -500,6 +537,10 @@ public class Executable {
 		}
 	}
 
+	/**
+	 * This function displays the library of a registered user and allows them to choose a book to read
+	 * with a simulated reading experience.
+	 */
 	public void displayLibrary(){
 		boolean flag = false;
 		boolean flag2 = false;
@@ -528,7 +569,16 @@ public class Executable {
 
 				System.out.println(rXSystem.lectureSimulator(id, bookChoosed, page, userChoice, count));
 				userChoice = reader.nextLine();
-
+				if(userChoice.equals("A")){
+					count++;
+					if(!(page<=1)){
+						page--;
+					}
+				}
+				if(userChoice.equals("S")){
+					page++;
+					count++;
+				}
 				if(userChoice.equals("B")){
 					flag2 = true;
 				}
@@ -540,10 +590,16 @@ public class Executable {
 
 	}
 
+	/**
+	 * The function generates a report by printing out various statistics related to reading habits in the
+	 * rXSystem.
+	 */
 	public void generateReport(){
 		System.out.println(rXSystem.acumReadedPagesPerProduct());
 		System.out.println(rXSystem.genreAndCategoryMoreReaded());
 		System.out.println(rXSystem.top5());
+		System.out.println(rXSystem.genreResume());
+		System.out.println(rXSystem.categoryResume());
 	}
 
 	

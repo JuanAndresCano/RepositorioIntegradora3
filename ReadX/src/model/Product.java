@@ -114,6 +114,9 @@ public abstract class Product {
         this.acumReadedPages = getAcumReadedPages() + newReadedPages;
     }
 
+    /**
+     * The function increments the number of pages read.
+     */
     public void newReadedPage(){
         this.acumReadedPages++;
     }

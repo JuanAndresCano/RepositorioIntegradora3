@@ -25,22 +25,35 @@ public class Premium extends User{
         userProducts = new ArrayList<>();
     }
 
+    /**
+     * This function returns the category of an object.
+     * 
+     * @return The method is returning an object of the Category class.
+     */
     public Category getCategory() {
         return category;
     }
 
+    /**
+     * This function sets the category of an object.
+     * 
+     * @param category The parameter "category" is an object of the class "Category". The method
+     * "setCategory" sets the value of the instance variable "category" to the value passed as the
+     * parameter.
+     */
     public void setCategory(Category category) {
         this.category = category;
     }
 
-    public String getAtributes(){
-		String msg = "";
-
-		
-
-		return msg;
-	}
-
+   /**
+    * The function adds a book to the user's products and creates a bill for the purchase.
+    * 
+    * @param name The name of the book being bought.
+    * @param price The price of the book being bought.
+    * @param tempBook The "tempBook" parameter is an object of the class "Book". It is being passed as
+    * an argument to the method "buyABook".
+    * @return A boolean value is being returned.
+    */
     @Override
     public boolean buyABook(String name, double price, Book tempBook){
         
@@ -48,20 +61,46 @@ public class Premium extends User{
 
     }
 
+    /**
+     * This Java function adds a new bill and a magazine to a user's products when they subscribe to
+     * the magazine.
+     * 
+     * @param name The name of the user who wants to subscribe to the magazine.
+     * @param subscribeCost The cost of subscribing to the magazine.
+     * @param tempMagazine The "tempMagazine" parameter is an object of the class "Magazine". It is
+     * being passed as an argument to the method "subscribe" along with the "name" and "subscribeCost"
+     * parameters. The method is using this object to add the magazine to the user's list of subscribed
+     * @return A boolean value is being returned.
+     */
     @Override
     public boolean suscribe(String name, double subscribeCost, Magazine tempMagazine) {
          
-        return (bills.add(new Bill(subscribeCost, name, TypeOfProduct.MAGAZINE)) &&(userProducts.add(tempMagazine)));
+        return (bills.add(new Bill(subscribeCost, name, TypeOfProduct.MAGAZINE)) && (userProducts.add(tempMagazine)));
 
     }
 
-    
-    
-    public void organizeByDatePremium() {
+    /**
+     * This function organizes a list of user products by their publication date in ascending order.
+     */
+    public void organizeByDatePremium() { 
         
-        
+        for (int i = 1; i < userProducts.size(); i++){
+            for (int j = 0; j < i; j++) {
+                if (userProducts.get(i).getPublicationDate().compareTo(userProducts.get(j).getPublicationDate()) < 0) {
+                    userProducts.add(j, userProducts.remove(i));
+                    break;
+                }
+            }
+        }
     }
 
+    /**
+     * This function fills an ArrayList with 5x5 matrices of user product IDs, with each matrix
+     * containing up to 25 product IDs.
+     * 
+     * @return An ArrayList of 2D String arrays, where each 2D array represents a premium library
+     * filled with the user's products.
+     */
     public ArrayList<String[][]> fillLibraryPremium(){
         
         int cont = 0;
@@ -122,6 +161,16 @@ public class Premium extends User{
     
         
     }
+
+    /**
+     * The function returns a string representation of a matrix filled with data from a list of string
+     * arrays.
+     * 
+     * @return The method `showMatrix()` returns a `String` that represents a matrix of strings. The
+     * matrix is created by iterating over an `ArrayList` of `String` arrays and concatenating the
+     * elements of each array into a string, separated by spaces and newlines. The resulting string is
+     * then returned.
+     */
     public String showMatrix() {
 
 		ArrayList<String[][]> list = fillLibraryPremium();
@@ -151,6 +200,17 @@ public class Premium extends User{
 	}
 
     
+    /**
+     * The function returns a message for a premium lecture simulator with information about the
+     * current page being read and options to navigate.
+     * 
+     * @param page The current page being read by the user.
+     * @param totalPages The total number of pages in the book being read.
+     * @param name a String representing the name of the book being read
+     * @return The method is returning a String message that includes the name of the book being read,
+     * the current page number, the total number of pages, and instructions for the user to navigate
+     * through the reading session.
+     */
     public String lectureSimulatorPremium( int page, int totalPages, String name){
 
 		String msg = "";
