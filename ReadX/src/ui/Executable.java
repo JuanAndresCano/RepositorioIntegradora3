@@ -189,6 +189,7 @@ public class Executable {
 			int category = 0;
 
 			int option2 = 0;
+			reader.nextLine();
 
 			if(rXSystem.getTypeOfUser(option - 1)){
 				System.out.println("Digite el nuevo nombre");
@@ -199,6 +200,8 @@ public class Executable {
 				System.out.println("1. Nombre \n2. Categoría");
 				option2 = reader.nextInt();
 				if(option2 == 1){
+					reader.nextLine();
+
 					System.out.println("Digite el nuevo nombre");
 					name = reader.nextLine();
 				}else{
@@ -315,15 +318,16 @@ public class Executable {
 	 * price, and category, and then calls a method to register the product in the system.
 	 */
 	private void registerProduct(){
+		reader.nextLine();
 
-		System.out.println("Digite el nombre del libro");
+		System.out.println("Digite el nombre del producto");
 		String name = reader.nextLine();
 
 		System.out.println("Digite la cantidad de páginas");
 		int numOfPages = reader.nextInt();
 		int typeOfProduct = 0;
 
-		while((typeOfProduct != 1) || (typeOfProduct != 2)){
+		while((typeOfProduct != 1) && (typeOfProduct != 2)){
 		 	System.out.println("¿Qué clase de producto se va a registrar? \n1. Libro. \n2. Revista");
 			typeOfProduct = reader.nextInt();
 		}
@@ -336,10 +340,11 @@ public class Executable {
 		String broadCastPeriodicity = "";
 
 		if (typeOfProduct == 1){
+			reader.nextLine();
 			System.out.println("Digite el resumen del libro");
 			review = reader.nextLine();
 
-			while(((genre != 1) || (genre != 2)) || (genre != 3)){
+			while(((genre != 1) && (genre != 2)) && (genre != 3)){
 				System.out.println("Digite el género del libro: \n1. SCIENCE_FICTION. \n2. FANTASY. \n3. HISTORICAL_NOVEL");
 				genre = reader.nextInt();
 			}
@@ -349,13 +354,14 @@ public class Executable {
 		
 		}else{
 
-			while (((categoryChoose != 1) || (categoryChoose != 2)) || (categoryChoose != 3)){
-				System.out.println("Digite la categpría de la revista: \n1. VARIETIES. \n2. DESIGN \n3. SCIENCE");
+			while (((categoryChoose != 1) && (categoryChoose != 2)) && (categoryChoose != 3)){
+				System.out.println("Digite la categoría de la revista: \n1. VARIETIES. \n2. DESIGN \n3. SCIENCE");
 				categoryChoose = reader.nextInt();
 			}
 
 			System.out.println("Digite el costo que tendrá la suscripción");
 			subscribeCost = reader.nextDouble();
+			reader.nextLine();
 
 			System.out.println("Digite la periodicidad de las publicaciones");
 			broadCastPeriodicity = reader.nextLine();
@@ -407,16 +413,22 @@ public class Executable {
 				option2 = reader.nextInt();
 
 				if (option2 == 1){
+					reader.nextLine();
+
 					System.out.println("Digite el nuevo nombre");
 					name = reader.nextLine();
 				}
 
 				if (option2 == 2){
+					reader.nextLine();
+
 					System.out.println("Digite el nuevo url");
 					url = reader.nextLine();
 				}
 
 				if (option2 == 3){
+					reader.nextLine();
+
 					System.out.println("Digite el nuevo precio");
 					price = reader.nextDouble();
 				}
@@ -425,25 +437,32 @@ public class Executable {
 
 				System.out.println("¿Qué datos desea modificar?");
 				System.out.println("1. Nombre \n2. Url \n3. Precio de la subscripcion \n4. Periodicidad de emision");
-
 				option3 = reader.nextInt();
 
 				if(option3 == 1){
+					reader.nextLine();
+
 					System.out.println("Digite el nuevo nombre");
 					name = reader.nextLine();
 				}
 
 				if(option3 == 2){
+					reader.nextLine();
+
 					System.out.println("Digite la nueva url");
 					url = reader.nextLine();
 				}
 
 				if(option3 == 3){
-					System.out.println("Digite el nuevo precio de la subscripcion");
+					reader.nextLine();
+
+					System.out.println("Digite el nuevo precio de la suscripcion");
 					price = reader.nextDouble();
 				}
 
 				if(option3 == 4){
+					reader.nextLine();
+
 					System.out.println("Digite la nueva periodicidad de emision");
 					broadCastPeriodicity = reader.nextLine();
 				}
@@ -452,11 +471,11 @@ public class Executable {
 
 			if (rXSystem.editProduct(option - 1, name, url, price, broadCastPeriodicity, typeOfProduct, option2, option3)) {
 
-				System.out.println("\nUsuario editado exitosamente");
+				System.out.println("\nProducto editado exitosamente");
 
 			} else {
 
-				System.out.println("\nError, el usuario no pudo ser editado");
+				System.out.println("\nError, el producto no pudo ser editado");
 			}
 
 		}

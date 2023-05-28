@@ -294,7 +294,9 @@ public class Controller {
 		while(!flag){
 			int count = 0;
 			idSup = UUID.randomUUID().toString().toUpperCase();
-			idSup.substring(0, 3);
+
+			idSup = idSup.substring(0, 3);
+
 			for(int i = 0; i < products.size(); i++){
 				if (idSup.equals(products.get(i).getId())){
 					count++;
@@ -418,11 +420,12 @@ public class Controller {
 				return true;
 			}
 			if (option3 == 2 ){
-				products.get(userPosition).setName(name);
+				products.get(userPosition).setUrl(url);
 				return true;
 			}
 			if (option3 == 3 ){
 				((Magazine)products.get(userPosition)).setSubscribeCost(price);
+				return true;
 			}
 			if (option3 == 4){
 				((Magazine)products.get(userPosition)).setBroadCastPeriodicity(broadCastPeriodicity);
@@ -729,7 +732,7 @@ public class Controller {
 					msg += ((Regular)users.get(i)).lectureSimulatorRegular(page, totalPages, name);
 					
 
-					if ((count/5) == 0){
+					if ((count%5) == 0){
 						count2 = random.nextInt(3);
 						if(count2 == 0){
 							msg += "\n\n¡Suscríbete al Combo Plus y llévate Disney+ y Star+ a un precio increíble!\n\n";

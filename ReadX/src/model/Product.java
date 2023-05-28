@@ -1,7 +1,7 @@
 package model;
 
 import java.util.Calendar;
-import java.text.SimpleDateFormat;
+
 
 public abstract class Product {
     private String id;

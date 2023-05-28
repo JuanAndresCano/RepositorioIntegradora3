@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Calendar;
+
 
 public class Magazine extends Product {
     private MCategory category;

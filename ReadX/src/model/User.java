@@ -2,7 +2,7 @@ package model;
 
 import java.util.Calendar;
 
-import java.text.SimpleDateFormat;
+
 
 
 
@@ -110,6 +110,6 @@ public abstract class User implements BuyOrSuscribe {
 	 */
 	@Override
 	public String toString() {
-		return "User: \nId = " + id + "\nName = " + name + "\nNickname = " + nickname + "\nRegistration date = " + getSignUpDate() ;
+		return "User: \nId = " + id + "\nName = " + name + "\nNickname = " + nickname;
 	}
 }

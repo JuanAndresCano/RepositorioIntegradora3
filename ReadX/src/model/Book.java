@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Calendar;
-
 public class Book extends Product{
     
     private String review;

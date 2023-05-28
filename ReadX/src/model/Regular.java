@@ -4,13 +4,13 @@ public class Regular extends User{
     
     private Bill[] bills;
     private Product[] userProducts;
-    private Product[][] library;
+
     
     public Regular(String id, String name, String nickname){
         super(id, name, nickname);
         bills = new Bill[7];
         userProducts = new Product[7];
-        library = new Product[5][5];
+
     }
 
     /**

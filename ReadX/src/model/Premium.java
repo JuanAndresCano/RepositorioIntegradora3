@@ -4,7 +4,6 @@ import java.util.ArrayList;
 public class Premium extends User{
     private Category category;
     private ArrayList<Bill> bills;
-    private ArrayList<Product> library;
     private ArrayList<Product> userProducts;
 
     public Premium(String id, String name, String nickname, int userCategory){
@@ -21,7 +20,6 @@ public class Premium extends User{
         }
         
         bills = new ArrayList<>();
-        library = new ArrayList<>();
         userProducts = new ArrayList<>();
     }
 
